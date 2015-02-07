@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/text_col"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:text="@string/app_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtTitle"
+        android:layout_centerHorizontal="true"
+        android:textSize="55sp"
+        android:textColor="@color/background"
+        android:gravity="center_horizontal"
+        style="@style/title_text"/>
+
+    <ListView
+        android:id="@+id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:divider="#ffbfc0bc"
+        android:textColor="@color/background"
+        android:textSize="30sp"
+        android:listSelector="@drawable/list_item"
+        android:shadowColor="@color/shaddow_col"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
+        android:background="@drawable/list_view"
+        android:layout_below="@+id/txtTitle"
+        android:layout_marginBottom="50dp" >
+    </ListView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Schedule New Message"
+        android:id="@+id/btnAddNew"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/android:list"
+        android:layout_alignEnd="@+id/android:list"
+        android:background="@drawable/list_view"
+        android:textColor="@color/text_col"/>
+
+</RelativeLayout>
+
