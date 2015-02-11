@@ -1,40 +1,38 @@
 package net.as93.homesafe;
 
-import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ArrayAdapter;
+import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-
-public class MainActivity extends ListActivity {
-
-//    private SimpleAdapter sa;
-    ListView lstSchedules;
-
-    private ProgressDialog m_ProgressDialog = null;
-    private ArrayList<Schedule> m_schedules = null;
-    private ScheduleAdapter m_adapter;
-    private Runnable viewSchedules;
+/**
+ * Created by Alicia on 10/02/2015.
+ */
+public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setUpGui();
     }
 
@@ -48,9 +46,6 @@ public class MainActivity extends ListActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -59,36 +54,71 @@ public class MainActivity extends ListActivity {
     }
 
 
+
+
     public void setUpGui(){
-        /* Hide title bar and set XML layout */
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        /* Set XML layout */
         this.setContentView(R.layout.activity_main);
 
         /* Get elements */
-        TextView txtTitle = (TextView)findViewById(R.id.txtTitle);
-        Button btnAddNew  = (Button)findViewById(R.id.btnAddNew);
-//        lstSchedules = (ListView)findViewById(R.id.list);
-
-        /* Set Fonts */
-        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/Raleway.ttf");
-        txtTitle.setTypeface(myTypeface);
-
-        /* Get Schedules and Populate List */
-        m_schedules = new ArrayList<Schedule>();
-        this.m_adapter = new ScheduleAdapter(this, R.layout.list_item, m_schedules);
-        setListAdapter(this.m_adapter);
-        viewSchedules = new Runnable(){
-            @Override
-            public void run() {
-                getSchedules();
-            }
-        };
-        Thread thread =  new Thread(null, viewSchedules, "MagentoBackground");
-        thread.start();
-        m_ProgressDialog = ProgressDialog.show(MainActivity.this,
-                "Please wait...", "Retrieving data ...", true);
+        ImageButton btnAddNew  = (ImageButton)findViewById(R.id.btnAddNew);
 
 
+        /* FAB button */
+
+
+        /* Recycler View */
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.schedule_recycler);
+        mRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        AppData ad = new AppData(getApplicationContext());
+
+
+
+
+
+
+/*  =============== Writing Dummy Data to Database ==================*/ /*
+        //Dummy Data
+        Schedule s1 = new Schedule();
+        s1.setId(1);
+        s1.setContact("07712044238");
+        s1.setLocation("Andover");
+        s1.setMessage("Arrived at Andover");
+        Schedule s2 = new Schedule();
+        s2.setId(2);
+        s2.setContact("07717477592");
+        s2.setLocation("OX1 1RX");
+        s2.setMessage("Yo, am on Oxpens Rd");
+        Schedule s3 = new Schedule();
+        s3.setId(3);
+        s3.setContact("07412194151");
+        s3.setLocation("E1 1ES");
+        s3.setMessage("Arrived home safely");
+
+        ArrayList<Schedule> dummyData = new ArrayList<>();
+        dummyData.add(s1);
+        dummyData.add(s2);
+        dummyData.add(s3);
+
+        ad.setScheduleList(dummyData);
+        ad.writeToDb();
+        */
+
+        ad.readFromDb();
+
+        if(ad.getAllSchedules()!=null) {
+            ArrayList<Schedule> schedulesData = new ArrayList<>(ad.getAllSchedules());
+            RecyclerView.Adapter mAdapter = new MyAdapter(schedulesData);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+        else{
+            /* Show the user the adding schedules message */
+            showNoSchedulesInfo();
+
+        }
         /* Add New Schedule Button Event */
         btnAddNew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,76 +129,99 @@ public class MainActivity extends ListActivity {
         });
     }
 
-    private Runnable returnRes = new Runnable() {
 
-        @Override
-        public void run() {
-            if(m_schedules != null && m_schedules.size() > 0){
-                m_adapter.notifyDataSetChanged();
-                for(int i=0;i<m_schedules.size();i++)
-                    m_adapter.add(m_schedules.get(i));
-            }
-            m_ProgressDialog.dismiss();
-            m_adapter.notifyDataSetChanged();
-        }
-    };
+    public void showNoSchedulesInfo(){
 
-    private void getSchedules(){
-        AppData ad = new AppData(getApplicationContext());
+        /* Liniar layout to hold all related components */
+        LinearLayout linearLayout= new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setPadding(30,40,30,10);
 
-        //Dummy Data
-        Schedule s1 = new Schedule();
-        s1.setId(1);
-        s1.setContact("07712044239");
-        s1.setLocation("Andover");
-        s1.setMessage("Arrived at Andover");
-        Schedule s2 = new Schedule();
-        s2.setId(2);
-        s2.setContact("07717477592");
-        s2.setLocation("OX1 1RX");
-        s2.setMessage("Yo, am at Falklands House");
-        Schedule s3 = new Schedule();
-        s3.setId(3);
-        s3.setContact("07412194121");
-        s3.setLocation("E1 1ES");
-        s3.setMessage("Arrived home safely");
-        ArrayList<Schedule> dummyData = new ArrayList<Schedule>();
-        dummyData.add(s1);
-        dummyData.add(s2);
-        dummyData.add(s3);
+        /* ImageView to show a nice picture of something vaguley relevant*/
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.drawable.welcome);
+        imageView.setPadding(5,30,5,10);
 
-        ad.setScheduleList(dummyData);
-        ad.writeToDb();
+        Typeface fontRaleway = Typeface.createFromAsset(getAssets(), "fonts/Raleway.ttf");
 
+        /* Heading 1 and properties */
+        TextView h1 = new TextView(this);
+        h1.setTypeface(fontRaleway);
+        h1.setTextSize(28);
+        h1.setPadding(5,30,5,5);
+        h1.setGravity(Gravity.CENTER);
+        h1.setText("Welcome to HomeSafe");
 
-        ad.readFromDb();
-        m_schedules = new ArrayList<Schedule>(ad.getAllSchedules());
-    try {
-        Thread.sleep(500);
-    } catch (InterruptedException e) {
-        e.printStackTrace();
+        /* Heading 2 and properties */
+        TextView h2 = new TextView(this);
+        h2.setTypeface(fontRaleway);
+        h2.setTextSize(20);
+        h2.setPadding(5,30,5,5);
+        h2.setGravity(Gravity.CENTER);
+        h2.setText("The location scheduling SMS app");
+
+        /* Heading 3 and properties */
+        TextView h3 = new TextView(this);
+        h3.setTypeface(fontRaleway);
+        h3.setTextSize(20);
+        h3.setPadding(5,30,5,5);
+        h3.setGravity(Gravity.CENTER);
+        h3.setText("To get started create a new schedule by touching the pink button below to add an SMS schedule");
+
+        /* Add everything to the liniar layout*/
+        linearLayout.addView(h1);
+        linearLayout.addView(h2);
+        linearLayout.addView(imageView);
+        linearLayout.addView(h3);
+
+        /* put the liniear layout containing everything on the screen */
+        RelativeLayout main = (RelativeLayout)findViewById(R.id.main);
+        main.addView(linearLayout);
+
     }
-    runOnUiThread(returnRes);
-}
 
 
-    private class ScheduleAdapter extends ArrayAdapter<Schedule> {
 
-        private ArrayList<Schedule> items;
 
-        public ScheduleAdapter(Context context, int textViewResourceId, ArrayList<Schedule> items) {
-            super(context, textViewResourceId, items);
-            this.items = items;
+
+
+
+
+
+    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+        private ArrayList<Schedule> mDataset;
+
+        public  class ViewHolder extends RecyclerView.ViewHolder {
+            public LinearLayout mTextView;
+            public ViewHolder(View v) {
+                super(v);
+                mTextView = (LinearLayout) v;
+            }
+        }
+
+        public MyAdapter(ArrayList<Schedule> myDataset) {
+            mDataset = myDataset;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View v = convertView;
+        public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                       int viewType) {
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_item, parent, false);
+            ViewHolder holder = new ViewHolder(v);
+            return holder;
+        }
+
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+
+            View v = holder.mTextView;
             if (v == null) {
                 LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = vi.inflate(R.layout.list_item, null);
             }
-            Schedule s = items.get(position);
+            Schedule s = mDataset.get(position);
             if (s != null) {
                 TextView tt = (TextView) v.findViewById(R.id.contact_location);
                 TextView bt = (TextView) v.findViewById(R.id.message);
@@ -178,15 +231,16 @@ public class MainActivity extends ListActivity {
                     bt.setText("Message: "+ s.getMessage());
                 }
             }
-            return v;
+
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return mDataset.size();
         }
     }
 
 
-
-
 }
-
-
-
-

@@ -1,18 +1,12 @@
 package net.as93.homesafe;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Alicia on 10/11/2014.
@@ -20,7 +14,6 @@ import java.util.Map;
 public class AppData {
 
     ArrayList<Schedule> scheduleList;
-    ArrayList<String> scheduleStrings;
     Context c;
     TinyDB tinydb;
     Gson gson = new Gson();
@@ -32,7 +25,6 @@ public class AppData {
     }
 
     public void addSchedule(Schedule newSchedule){
-
         scheduleList.add(newSchedule);
     }
 
@@ -72,35 +64,16 @@ public class AppData {
 
     public void readFromDb(){
         String jsonSchedules = tinydb.getString("jsonSchedules");
-//        ArrayList<Schedule> results = new ArrayList<Schedule>();
-//        List<Schedule> serialSchedules = gson.fromJson(jsonSchedules, ArrayList.class);
-//
-//
-//        for(int i = 0 ; i < serialSchedules.size() ; i++){
-//            Schedule newSchedule = new Schedule();
-//            int k = 7;
-////            newSchedule.setId(serialSchedules.get(i).get("id"));
-////
-////            Schedule item = (Schedule) serialSchedules.get(i);
-////            results.add(item);
-//        }
-////        this.scheduleList = results;
-
-
-
         List<Schedule> schedules;
-
-        Schedule[] favoriteItems = gson.fromJson(jsonSchedules, Schedule[].class);
-
-        schedules = Arrays.asList(favoriteItems);
-        schedules = new ArrayList<Schedule>(schedules);
-
-        scheduleList= new ArrayList<Schedule>(schedules);
-
-
-
-
-
+        Schedule[] entries = gson.fromJson(jsonSchedules, Schedule[].class);
+        if(entries!=null) {
+            schedules = Arrays.asList(entries);
+            schedules = new ArrayList<Schedule>(schedules);
+            scheduleList = new ArrayList<Schedule>(schedules);
+        }
+        else{
+            scheduleList = null;
+        }
     }
 
 

@@ -2,55 +2,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@color/text_col"
-    tools:context=".MainActivity">
+    android:background="@color/colorLight"
+    tools:context=".MainActivity"
+    android:id="@+id/main">
 
-    <TextView
-        android:text="@string/app_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtTitle"
-        android:layout_centerHorizontal="true"
-        android:textSize="55sp"
-        android:textColor="@color/background"
-        android:gravity="center_horizontal"
-        style="@style/title_text"/>
 
-    <ListView
-        android:id="@+id/android:list"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/schedule_recycler"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:divider="#ffbfc0bc"
-        android:textColor="@color/background"
-        android:textSize="30sp"
-        android:listSelector="@drawable/list_item"
-        android:shadowColor="@color/shaddow_col"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="1"
-        android:background="@drawable/list_view"
-        android:layout_below="@+id/txtTitle"
-        android:layout_marginBottom="50dp" >
-    </ListView>
+        />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Schedule New Message"
+
+
+    <ImageButton
         android:id="@+id/btnAddNew"
+        android:layout_width="@dimen/fab_button_diameter"
+        android:layout_height="@dimen/fab_button_diameter"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/android:list"
-        android:layout_alignEnd="@+id/android:list"
-        android:background="@drawable/list_view"
-        android:textColor="@color/text_col"/>
+        android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+        android:layout_marginRight="@dimen/fab_button_margin_right"
+        android:background="@drawable/fab_shape"
+        android:src="@drawable/fab_ic_add"
+        android:tint="@android:color/white"
+        android:stateListAnimator="@anim/anim"
+        />
+
 
 </RelativeLayout>
 

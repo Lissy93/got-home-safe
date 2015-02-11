@@ -2,15 +2,15 @@
 <resources>
 
     <string name="app_name">Home Safe</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="app_title">Home Safe!</string>
 
-    <color name="background">#ff522092</color>
-    <color name="text_col">#E5E6E1</color>
-    <color name="main_darker">#ff3d1f78</color>
-    <color name="main_lighter">#ff7120ba</color>
-    <color name="shaddow_col">#ff888499</color>
+    <color name="colorPrimary">#00BCD4</color>
+    <color name="colorPrimaryDark">#006064</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentLighter">#ffff81a3</color>
+    <color name="colorLighter">#B2EBF2</color>
+    <color name="colorLight">#E0F7FA</color>
+    <color name="colorLightGrey">#ffc8c8c8</color>
 
     <string name="title_activity_map_select">MapSelect</string>
 

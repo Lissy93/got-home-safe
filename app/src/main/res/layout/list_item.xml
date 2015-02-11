@@ -12,7 +12,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:textColor="@color/text_col"
         />
 
     <TextView
@@ -24,7 +23,6 @@
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:singleLine="true"
         android:ellipsize="marquee"
-        android:textColor="@color/text_col"
         />
 
 </LinearLayout>
