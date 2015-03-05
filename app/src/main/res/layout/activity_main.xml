@@ -1,36 +1,54 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorLight"
-    tools:context=".MainActivity"
-    android:id="@+id/main">
+    android:layout_height="match_parent">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/schedule_recycler"
-        android:scrollbars="vertical"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:background="@color/colorLight"
+        tools:context=".MainActivity"
+        android:id="@+id/main">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/schedule_recycler"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
 
 
-    <ImageButton
-        android:id="@+id/btnAddNew"
-        android:layout_width="@dimen/fab_button_diameter"
-        android:layout_height="@dimen/fab_button_diameter"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/fab_button_margin_bottom"
-        android:layout_marginRight="@dimen/fab_button_margin_right"
-        android:background="@drawable/fab_shape"
-        android:src="@drawable/fab_ic_add"
-        android:tint="@android:color/white"
-        android:stateListAnimator="@anim/anim"
-        />
+        <ImageButton
+            android:id="@+id/btnAddNew"
+            android:layout_width="@dimen/fab_button_diameter"
+            android:layout_height="@dimen/fab_button_diameter"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+            android:layout_marginRight="@dimen/fab_button_margin_right"
+            android:background="@drawable/fab_shape"
+            android:src="@drawable/fab_ic_add"
+            android:tint="@android:color/white"
+            android:stateListAnimator="@anim/anim"
+            />
+
+    </RelativeLayout>
+
+    <!-- The navigation drawer -->
+    <ListView android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:background="@color/colorWhite"/>
 
 
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>
 

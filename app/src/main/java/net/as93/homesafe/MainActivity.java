@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -13,12 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,35 +31,95 @@ import java.util.ArrayList;
 /**
  * Created by Alicia on 10/02/2015.
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity  {
+
+
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private CharSequence mTitle;
+    private String[] mSideMenuItems = {"View Schedules","Create Schedule","Settings", "About"};
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setUpGui();
+        setUpGui(savedInstanceState);
+    }
+
+    private class SlideMenuClickListener implements
+            ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                                long id) {
+            // display view for selected nav drawer item
+            displayView(position);
+        }
+    }
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                final ListView mDrawer = (ListView)findViewById(R.id.left_drawer);
+                final DrawerLayout mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+                if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(mDrawer);
+                }
+                else{
+                    mDrawerLayout.openDrawer(mDrawer);
+                }
+                return true;
+            case R.id.action_websearch:
+                Toast.makeText(this, "Hello World", Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
+    private void displayView(int position) {
+        switch(position) {
+            case 0: // View Schedules
+
+            case 1: // Create Schedule
+
+            case 2: // Settings
+
+            case 3: // About
+
+            default:
+
+        }
+    }
+
+
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getSupportActionBar().setTitle(mTitle);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
-
-
-
-    public void setUpGui(){
+    public void setUpGui(Bundle savedInstanceState){
 
         /* Set XML layout */
         this.setContentView(R.layout.activity_main);
@@ -65,7 +128,24 @@ public class MainActivity extends ActionBarActivity {
         ImageButton btnAddNew  = (ImageButton)findViewById(R.id.btnAddNew);
 
 
-        /* FAB button */
+        /* Draw Arrow Toggle */
+        mTitle =  getTitle();
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mSideMenuItems));
+
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
+                this,  mDrawerLayout, R.drawable.ic_drawer,
+                R.string.drawer_open, R.string.drawer_close
+        );
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mDrawerToggle.syncState();
+        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+
 
 
         /* Recycler View */
@@ -129,6 +209,28 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
+    public void onNavigationDrawerItemSelected(int position) {
+        // update the main content by replacing fragments
+//        Fragment fragment;
+//        FragmentManager fragmentManager = getFragmentManager(); // For AppCompat use getSupportFragmentManager
+        switch(position) {
+            default:
+            case 0:
+                Toast.makeText(this, "Hello World 0 ", Toast.LENGTH_LONG).show();
+
+                //fragment = new MyFragment1();
+                break;
+            case 1:
+                Toast.makeText(this, "Hello World 1 ", Toast.LENGTH_LONG).show();
+
+                //fragment = new MyFragment2();
+                break;
+        }
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.container, fragment)
+//                .commit();
+    }
+
 
     public void showNoSchedulesInfo(){
 
@@ -148,7 +250,7 @@ public class MainActivity extends ActionBarActivity {
         TextView h1 = new TextView(this);
         h1.setTypeface(fontRaleway);
         h1.setTextSize(28);
-        h1.setPadding(5,30,5,5);
+        h1.setPadding(5, 30, 5, 5);
         h1.setGravity(Gravity.CENTER);
         h1.setText("Welcome to HomeSafe");
 
@@ -179,13 +281,6 @@ public class MainActivity extends ActionBarActivity {
         main.addView(linearLayout);
 
     }
-
-
-
-
-
-
-
 
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
@@ -240,7 +335,10 @@ public class MainActivity extends ActionBarActivity {
         public int getItemCount() {
             return mDataset.size();
         }
+
+
     }
+
 
 
 }

@@ -11,7 +11,16 @@
     <color name="colorLighter">#B2EBF2</color>
     <color name="colorLight">#E0F7FA</color>
     <color name="colorLightGrey">#ffc8c8c8</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
 
     <string name="title_activity_map_select">MapSelect</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
 
 </resources>
