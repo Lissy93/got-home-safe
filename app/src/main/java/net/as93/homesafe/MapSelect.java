@@ -1,6 +1,5 @@
 package net.as93.homesafe;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -8,13 +7,14 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapSelect extends FragmentActivity {
+public class MapSelect extends MainActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.setUpGenericGui();
         setContentView(R.layout.activity_map_select);
         setUpMapIfNeeded();
     }

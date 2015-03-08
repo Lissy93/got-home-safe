@@ -46,14 +46,13 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MapSelect"
             android:label="@string/title_activity_map_select"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@style/Theme.AppTheme" >
         </activity>
 
         <meta-data
@@ -63,18 +62,6 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".ItemListActivity"
-            android:label="@string/title_item_list" >
-        </activity>
-        <activity
-            android:name=".ItemDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName=".ItemListActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.as93.homesafe.ItemListActivity" />
-        </activity>
     </application>
 
 </manifest>

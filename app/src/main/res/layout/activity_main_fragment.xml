@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:id="@+id/main">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/schedule_recycler"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <ImageButton
+        android:id="@+id/btnAddNew"
+        android:layout_width="@dimen/fab_button_diameter"
+        android:layout_height="@dimen/fab_button_diameter"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+        android:background="@drawable/fab_shape"
+        android:src="@drawable/fab_ic_add"
+        android:tint="@android:color/white"
+        android:stateListAnimator="@anim/anim"
+        />
+
+</RelativeLayout>
+
