@@ -1,5 +1,6 @@
 package net.as93.homesafe;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -51,14 +52,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case android.R.id.home: // Open or close the app draw
-                final ListView mDrawer = (ListView)findViewById(R.id.left_drawer);
-                final DrawerLayout mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-                if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mDrawerLayout.closeDrawer(mDrawer);
-                }
-                else{
-                    mDrawerLayout.openDrawer(mDrawer);
-                }
+                toggleDrawer();
                 return true;
             case R.id.action_websearch:
                 Toast.makeText(this, "Hello World", Toast.LENGTH_LONG).show();
@@ -68,47 +62,61 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    /**
+     * Opens of closes drawer.
+     */
+    private void toggleDrawer(){
+        final ListView mDrawer = (ListView)findViewById(R.id.left_drawer);
+        final DrawerLayout mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(mDrawer);
+        }
+        else{
+            mDrawerLayout.openDrawer(mDrawer);
+        }
+    }
+
     private class SlideMenuClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             displayView(position);
+            toggleDrawer();
         }
     }
 
     private void displayView(int position) {
 
-        //Fragment Manager
-        Fragment fragment;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-
         switch(position) {
             case 0: // View Schedules
-                fragment = new HomeActivity();
+                inflateFragmentView(new HomeActivity());
             break;
 
             case 1: // Create Schedule
-                fragment = new BlankFragment();
+                Intent i = new Intent(this, CreateSchedule.class);
+                startActivity(i);
+                toggleDrawer();
             break;
 
             case 2: // Settings
-                fragment = new BlankFragment();
+                inflateFragmentView(new BlankFragment());
             break;
 
             case 3: // About
-                fragment = new BlankFragment();
-                break;
-
-            default:
-                fragment = new BlankFragment();
+                inflateFragmentView(new BlankFragment());
                 break;
 
         }
 
+
+
+    }
+
+    private void inflateFragmentView(Fragment fragment){
+        //Fragment Manager
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
-
     }
 
     public void setUpGenericGui(){
