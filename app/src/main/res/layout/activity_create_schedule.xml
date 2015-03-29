@@ -1,4 +1,45 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    tools:context="net.as93.homesafe.CreateSchedule" tools:ignore="MergeRootFrame" />
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.as93.homesafe.CreateSchedule"
+    tools:ignore="MergeRootFrame"
+    android:padding="@dimen/zero">
+
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/map_hint"
+        android:inputType="textPostalAddress"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mapFragment"
+        android:layout_below="@id/address"
+        android:orientation="horizontal" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnNext"
+        android:text="@string/nextButtonText"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rectangle_button_selector"
+        android:textColor="@color/colorWhite"
+        android:tint="@android:color/white"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:elevation="4dp"
+
+        />
+
+</RelativeLayout>

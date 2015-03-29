@@ -6,8 +6,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:activatedBackgroundIndicator">@drawable/activated_list_item</item>
 
+        <item name="android:activatedBackgroundIndicator">@drawable/activated_list_item</item>
         <!-- You can also set colorControlNormal, colorControlActivated
              colorControlHighlight and colorSwitchThumbNormal. -->
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>

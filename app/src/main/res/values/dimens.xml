@@ -8,6 +8,7 @@
     <dimen name="fab_button_margin_right">16dp</dimen>
     <dimen name="fab_elevation_low">2dp</dimen>
     <dimen name="fab_elevation_high">6dp</dimen>
+    <dimen name="zero">0dp</dimen>
 
 
 </resources>
