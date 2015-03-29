@@ -1,30 +1,30 @@
-package net.as93.homesafe;
+package net.as93.homesafe.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import net.as93.homesafe.R;
+import net.as93.homesafe.data.Schedule;
+import net.as93.homesafe.data.AppData;
 
 import java.util.ArrayList;
 
 /**
  * Created by Alicia on 10/02/2015.
  */
-public class HomeActivity extends Fragment {
+public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

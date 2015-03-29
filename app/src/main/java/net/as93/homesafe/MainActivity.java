@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -16,6 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import net.as93.homesafe.fragments.BlankFragment;
+import net.as93.homesafe.fragments.HomeFragment;
 
 
 /**
@@ -33,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
 
         Fragment fragment;
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragment = new HomeActivity();
+        fragment = new HomeFragment();
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
@@ -88,7 +90,7 @@ public class MainActivity extends ActionBarActivity {
 
         switch(position) {
             case 0: // View Schedules
-                inflateFragmentView(new HomeActivity());
+                inflateFragmentView(new HomeFragment());
             break;
 
             case 1: // Create Schedule

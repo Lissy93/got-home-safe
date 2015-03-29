@@ -1,4 +1,4 @@
-package net.as93.homesafe;
+package net.as93.homesafe.data;
 
 import android.content.Context;
 
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Alicia on 10/11/2014.
  */
-public class AppData {
+public class AppData implements IAppData {
 
     ArrayList<Schedule> scheduleList;
     Context c;

@@ -1,4 +1,4 @@
-package net.as93.homesafe;
+package net.as93.homesafe.data;
 
 import android.util.Base64;
 import android.util.Base64InputStream;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 /**
  * Created by Alicia on 04/11/2014.
  */
-public class Schedule {
+public class Schedule implements ISchedule {
 
     private int id;
     private String location;

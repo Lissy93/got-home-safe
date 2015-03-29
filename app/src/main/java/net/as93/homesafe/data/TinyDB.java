@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.as93.homesafe;
+package net.as93.homesafe.data;
 
 import java.io.File;
 import java.io.FileOutputStream;
