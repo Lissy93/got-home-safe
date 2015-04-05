@@ -24,7 +24,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_create_schedule">CreateSchedule</string>
     <string name="hello_world">Hello world!</string>
-    <string name="map_hint">Start typing address or loaction</string>
+    <string name="map_hint">Start typing address or location</string>
     <string name="nextButtonText">Next</string>
+    <string name="str_atv_places">AIzaSyC6NOgE2-jDwRWeEf0Wy_3rKLtyhQcrbVI</string>
 
 </resources>

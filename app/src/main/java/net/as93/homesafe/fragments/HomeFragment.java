@@ -1,8 +1,10 @@
 package net.as93.homesafe.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,11 +12,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import net.as93.homesafe.CreateSchedule;
 import net.as93.homesafe.R;
 import net.as93.homesafe.data.Schedule;
 import net.as93.homesafe.data.AppData;
@@ -26,6 +30,8 @@ import java.util.ArrayList;
  */
 public class HomeFragment extends Fragment {
 
+    private boolean noSchedules;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,21 +40,26 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        super.setUpGenericGui();
-//        setUpViewSchedulesGui();
-//    }
-//
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(noSchedules){
+            showNoSchedulesInfo();
+        }
+
+        /* Add New Schedule Button Event */
+        ImageButton btnAddNew = (ImageButton)getActivity().findViewById(R.id.btnAddNew);
+        btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), CreateSchedule.class);
+                startActivity(i);
+            }
+        });
+    }
+
 
     public void setUpViewSchedulesGui(View view){
-
-
-        /* Get elements */
-//        ImageButton btnAddNew  = (ImageButton)getView().findViewById(R.id.btnAddNew);
-
 
         /* Prepare Data for Recycler View */
         AppData ad = new AppData(getActivity().getApplicationContext());
@@ -78,37 +89,27 @@ public class HomeFragment extends Fragment {
         dummyData.add(s3);
 
         ad.setScheduleList(dummyData);
-        ad.writeToDb();
-        */
+        ad.writeToDb(); */
 
         ad.readFromDb();
 
-        if(ad.getAllSchedules()!=null) {
-            ArrayList<Schedule> schedulesData = new ArrayList<>(ad.getAllSchedules());
-            RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.schedule_recycler);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-            mRecyclerView.setLayoutManager(mLayoutManager);
-            RecyclerView.Adapter mAdapter = new MyAdapter(schedulesData);
-            mRecyclerView.setAdapter(mAdapter);
+
+        ArrayList<Schedule> schedulesData = new ArrayList<>(ad.getAllSchedules());
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.schedule_recycler);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        RecyclerView.Adapter mAdapter = new MyAdapter(schedulesData);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+        if(ad.getAllSchedules()==null || ad.getAllSchedules().size()<1) {
+            noSchedules = true;
+            //showNoSchedulesInfo();
         }
-        else{
-            /* Show the user the adding schedules message */
-            showNoSchedulesInfo();
 
-        }
+        else{ noSchedules = false; }
 
 
-
-
-
-        /* Add New Schedule Button Event */
-//        btnAddNew.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity().getApplicationContext(), MapSelect.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 
 
@@ -156,16 +157,20 @@ public class HomeFragment extends Fragment {
         linearLayout.addView(imageView);
         linearLayout.addView(h3);
 
+        /* set layout params */
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+
         /* put the liniear layout containing everything on the screen */
         RelativeLayout main = (RelativeLayout)getActivity().findViewById(R.id.main);
-        main.addView(linearLayout);
-
+        main.addView(linearLayout, params);
     }
+
+
 
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         private ArrayList<Schedule> mDataset;
-
         public  class ViewHolder extends RecyclerView.ViewHolder {
             public LinearLayout mTextView;
             public ViewHolder(View v) {

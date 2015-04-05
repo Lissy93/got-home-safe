@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class MainActivity extends ActionBarActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragment = new HomeFragment();
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+
     }
 
     @Override
@@ -109,9 +111,9 @@ public class MainActivity extends ActionBarActivity {
 
         }
 
-
-
     }
+
+
 
     private void inflateFragmentView(Fragment fragment){
         //Fragment Manager
