@@ -2,5 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/rectangle_button_pressed" android:state_selected="true" />
     <item android:drawable="@drawable/rectangle_button_pressed" android:state_pressed="true" />
+    <item android:drawable="@drawable/rectangle_button_selected" android:state_active="true" />
+    <item android:drawable="@color/colorAccent" android:state_activated="true" />
     <item android:drawable="@drawable/rectangle_button" />
 </selector>

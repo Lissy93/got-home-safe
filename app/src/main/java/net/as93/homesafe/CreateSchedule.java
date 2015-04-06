@@ -31,8 +31,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.SupportMapFragment;
 
 import net.as93.homesafe.autocomplete.PlaceJsonParser;
 
@@ -76,6 +80,8 @@ public class CreateSchedule extends ActionBarActivity {
                 // TODO Auto-generated method stub
             }
         });
+
+
 
     }
 
@@ -131,29 +137,17 @@ public class CreateSchedule extends ActionBarActivity {
         HttpURLConnection urlConnection = null;
         try{
             URL url = new URL(strUrl);
-
-            // Creating an http connection to communicate with url
             urlConnection = (HttpURLConnection) url.openConnection();
-
-            // Connecting to url
             urlConnection.connect();
-
-            // Reading data from url
             iStream = urlConnection.getInputStream();
-
             BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
-
             StringBuffer sb = new StringBuffer();
-
             String line = "";
             while( ( line = br.readLine()) != null){
                 sb.append(line);
             }
-
             data = sb.toString();
-
             br.close();
-
         }catch(Exception e){
             Log.d("Exception while downloading url", e.toString());
         }finally{
@@ -197,31 +191,21 @@ public class CreateSchedule extends ActionBarActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
             parserTask = new ParserTask();
-
-            // Starting Parsing the JSON string returned by Web Service
             parserTask.execute(result);
         }
     }
     /** A class to parse the Google Places in JSON format */
     private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String,String>>>{
-
         JSONObject jObject;
 
         @Override
         protected List<HashMap<String, String>> doInBackground(String... jsonData) {
-
             List<HashMap<String, String>> places = null;
-
             PlaceJsonParser placeJsonParser = new PlaceJsonParser();
-
             try{
                 jObject = new JSONObject(jsonData[0]);
-
-                // Getting the parsed data as a List construct
                 places = placeJsonParser.parse(jObject);
-
             }catch(Exception e){
                 Log.d("Exception",e.toString());
             }
@@ -230,17 +214,26 @@ public class CreateSchedule extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(List<HashMap<String, String>> result) {
-
             String[] from = new String[] { "description"};
             int[] to = new int[] { android.R.id.text1 };
-
-            // Creating a SimpleAdapter for the AutoCompleteTextView
             SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), result, android.R.layout.simple_list_item_1, from, to);
-
-            // Setting the adapter
             atvPlaces.setAdapter(adapter);
+
+            atvPlaces.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                        long arg3) {
+
+//                    SupportMapFragment googleMap = (SupportMapFragment )findViewById(R.id.mapFragment);
+
+                    //TODO drop pin on map
+
+                }
+            });
         }
     }
+
 
 }
 
