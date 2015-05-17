@@ -1,6 +1,9 @@
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,24 +12,98 @@
     android:padding="@dimen/zero">
 
 
-    <net.as93.homesafe.autocomplete.AutocompletePlaces
-        android:id="@+id/placesAutocomplete"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/map_hint"
-        android:inputType="textPostalAddress"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp" />
-
-
+        style="@style/SubtitleText"
+        android:text="@string/createScheduleSubTitle1"
+        android:id="@+id/subTitle1"/>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/mapFragment"
-        android:layout_below="@id/placesAutocomplete"
-        android:orientation="horizontal" />
+        android:layout_height="280dp"
+        android:orientation="vertical"
+        android:background="@drawable/big_card"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:id="@+id/createScheduleSec1"
+        android:layout_below="@+id/subTitle1">
+
+        <net.as93.homesafe.autocomplete.AutocompletePlaces
+            android:id="@+id/placesAutocomplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/map_hint"
+            android:inputType="textPostalAddress"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp" />
+
+        <fragment
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:id="@+id/mapFragmentInner"
+            android:layout_margin="8dp"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SubtitleText"
+        android:text="@string/createScheduleSubTitle2"
+        android:layout_below="@+id/createScheduleSec1"
+        android:id="@+id/subTitle2"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:orientation="vertical"
+        android:background="@drawable/big_card"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:id="@+id/createScheduleSec2"
+        android:layout_below="@+id/subTitle2">
+
+
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SubtitleText"
+        android:text="@string/createScheduleSubTitle3"
+        android:layout_below="@+id/createScheduleSec2"
+        android:id="@+id/subTitle3"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:orientation="vertical"
+        android:background="@drawable/big_card"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:id="@+id/createScheduleSec3"
+        android:layout_below="@+id/subTitle3">
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:id="@+id/createScheduleSec4"
+        android:layout_below="@+id/createScheduleSec3">
+
+    </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
@@ -43,3 +120,4 @@
         />
 
 </RelativeLayout>
+</ScrollView>

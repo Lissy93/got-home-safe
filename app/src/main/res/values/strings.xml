@@ -6,11 +6,15 @@
 
     <color name="colorPrimary">#00BCD4</color>
     <color name="colorPrimaryDark">#006064</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ffef4074</color>
     <color name="colorAccentLighter">#ffff81a3</color>
     <color name="colorLighter">#B2EBF2</color>
     <color name="colorLight">#E0F7FA</color>
-    <color name="colorLightGrey">#ffc8c8c8</color>
+    <color name="colorLightGrey">#fff2f2f2</color>
+    <color name="colorMidGrey">#ff999999</color>
+    <color name="colorDarkGrey">#ff5b5b5b</color>
+    <color name="colShaddow">#8cb8b8b8</color>
+
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
 
@@ -25,7 +29,14 @@
     <string name="title_activity_create_schedule">CreateSchedule</string>
     <string name="hello_world">Hello world!</string>
     <string name="map_hint">Start typing address or location</string>
-    <string name="nextButtonText">Next</string>
-    <string name="str_atv_places">AIzaSyC6NOgE2-jDwRWeEf0Wy_3rKLtyhQcrbVI</string>
+    <string name="nextButtonText">Save</string>
+
+    <string name="createScheduleSubTitle1">1. Select a location</string>
+    <string name="createScheduleSubTitle2">2. Choose a contact</string>
+    <string name="createScheduleSubTitle3">3. Compose a message</string>
+
+
+
+    <string name="str_atv_places">AIzaSyDJsRfwbiV1PlGbbQw9tv0G_NXn25jDWfA</string>
 
 </resources>

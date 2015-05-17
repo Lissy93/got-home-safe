@@ -7,10 +7,10 @@
     tools:context="net.as93.homesafe.CreateSchedule$PlaceholderFragment">
 
     <fragment
-        class="com.google.android.gms.maps.MapFragment"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/mapFragment"
+        android:id="@+id/mapFragmentInner"
         android:layout_below="@id/placesAutocomplete"
         android:layout_margin="0dp" />
 

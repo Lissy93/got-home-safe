@@ -167,8 +167,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-
-
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         private ArrayList<Schedule> mDataset;
         public  class ViewHolder extends RecyclerView.ViewHolder {
